@@ -1,15 +1,38 @@
 <script setup>
+import Navbar from "@/Components/Navbar.vue";
 import { Head, Link } from "@inertiajs/vue3";
+
+defineProps({
+    canLogin: {
+        type: Boolean,
+    },
+    canRegister: {
+        type: Boolean,
+    },
+    laravelVersion: {
+        type: String,
+        required: true,
+    },
+    phpVersion: {
+        type: String,
+        required: true,
+    },
+});
 </script>
 
 <template>
     <Head title="Interview Mastery" />
 
+    <Navbar 
+        :can-login="canLogin"
+        :can-register="canRegister"
+    />
+
     <div
         class="min-h-screen bg-gradient-to-br from-sky-100 to-blue-200 flex items-center justify-center p-6"
     >
         <div
-            class="bg-white rounded-2xl shadow-lg max-w-md w-full text-center p-8"
+            class="bg-white rounded-2xl shadow-lg ring-2 max-w-md w-full text-center p-8"
         >
             <h1 class="text-3xl font-bold mb-4 text-blue-800">
                 🧠 Interview Mastery
