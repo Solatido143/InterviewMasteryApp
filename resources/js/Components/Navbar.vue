@@ -42,26 +42,28 @@ defineProps({
                     </li>
                 </ul>
             </div>
-            <div v-if="canLogin" class="flex gap-3">
-                <Link v-if="$page.props.auth.user" href="/dashboard">
-                    <PrimaryButton>Dashboard</PrimaryButton>
-                </Link>
-                <template v-else>
-                    <Link href="/login">
-                        <PrimaryButton>Login</PrimaryButton>
+            <div class="hidden w-full md:block md:w-auto">
+                <div v-if="canLogin" class="flex gap-3">
+                    <Link v-if="$page.props.auth.user" href="/dashboard">
+                        <PrimaryButton>Dashboard</PrimaryButton>
                     </Link>
+                    <template v-else>
+                        <Link href="/login">
+                            <PrimaryButton>Login</PrimaryButton>
+                        </Link>
 
-                    <Link v-if="canRegister" href="/register">
-                        <SecondaryButton>Register</SecondaryButton>
-                    </Link>
-                </template>
+                        <Link v-if="canRegister" href="/register">
+                            <SecondaryButton>Register</SecondaryButton>
+                        </Link>
+                    </template>
+                </div>
             </div>
-            <button
+            <PrimaryButton
                 data-collapse-toggle="navbar-default"
-                type="button"
-                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-default"
                 aria-expanded="false"
+                class="md:hidden"
+                id="burger-button"
             >
                 <span class="sr-only">Open main menu</span>
                 <svg
@@ -79,9 +81,13 @@ defineProps({
                         d="M1 1h15M1 7h15M1 13h15"
                     />
                 </svg>
-            </button>
+            </PrimaryButton>
         </div>
     </nav>
 </template>
 
-<style scoped></style>
+<style scoped>
+#burger-button{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}</style>
