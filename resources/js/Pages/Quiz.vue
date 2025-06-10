@@ -1,6 +1,7 @@
 <script setup>
-import { Head, usePage } from "@inertiajs/vue3";
+import { Head, Link, usePage } from "@inertiajs/vue3";
 import { ref } from "vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const { props } = usePage();
 const questions = props.questions;
@@ -23,7 +24,6 @@ const submitAnswer = () => {
         quizCompleted.value = true;
     }
 };
-
 </script>
 
 <template>
@@ -75,6 +75,9 @@ const submitAnswer = () => {
                 <p class="text-gray-700">
                     Your Score: {{ score }} / {{ questions.length }}
                 </p>
+                <Link href="/">
+                    <PrimaryButton class="mt-2">Back to home</PrimaryButton>
+                </Link>
             </div>
         </div>
     </div>

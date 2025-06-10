@@ -87,7 +87,8 @@ defineProps({
 </template>
 
 <style scoped>
-#burger-button{
+#burger-button {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-}</style>
+}
+</style>
