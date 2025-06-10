@@ -93,7 +93,7 @@ const submit = () => {
                 </PrimaryButton>
             </div>
 
-            <div class="mt-4 flex justify-center">
+            <div class="mt-4 sm:text-center">
                 <span>Don't have an account? <Link href="/register">Register</Link></span>
             </div>
         </form>
