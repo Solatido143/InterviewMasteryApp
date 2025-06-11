@@ -2,10 +2,13 @@
 import NavLink from "@/Components/NavLink.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 
 import { usePage, Link } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 const { url } = usePage();
+const showingNavigationDropdown = ref(false);
 
 defineProps({
     canLogin: {
@@ -40,6 +43,11 @@ defineProps({
                             >Quiz</NavLink
                         >
                     </li>
+                    <li>
+                        <NavLink href="/create" :active="url === '/create'"
+                            >Create</NavLink
+                        >
+                    </li>
                 </ul>
             </div>
             <div class="hidden w-full md:block md:w-auto">
@@ -58,30 +66,123 @@ defineProps({
                     </template>
                 </div>
             </div>
-            <PrimaryButton
-                data-collapse-toggle="navbar-default"
-                aria-controls="navbar-default"
-                aria-expanded="false"
-                class="md:hidden"
-                id="burger-button"
-            >
-                <span class="sr-only">Open main menu</span>
-                <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 17 14"
+            <div class="-me-2 flex items-center sm:hidden">
+                <button
+                    @click="
+                        showingNavigationDropdown = !showingNavigationDropdown
+                    "
+                    class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
                 >
-                    <path
+                    <svg
+                        class="h-6 w-6"
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M1 1h15M1 7h15M1 13h15"
-                    />
-                </svg>
-            </PrimaryButton>
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            :class="{
+                                hidden: showingNavigationDropdown,
+                                'inline-flex': !showingNavigationDropdown,
+                            }"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"
+                        />
+                        <path
+                            :class="{
+                                hidden: !showingNavigationDropdown,
+                                'inline-flex': showingNavigationDropdown,
+                            }"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                        />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div
+            :class="{
+                block: showingNavigationDropdown,
+                hidden: !showingNavigationDropdown,
+            }"
+            class="sm:hidden"
+        >
+            <div
+                v-if="$page.props.auth.user"
+                class="space-y-1 pb-3 pt-2 ring-2"
+            >
+                <ResponsiveNavLink
+                    :href="route('dashboard')"
+                    :active="route().current('dashboard')"
+                >
+                    Dashboard
+                </ResponsiveNavLink>
+                <ResponsiveNavLink
+                    :href="route('home')"
+                    :active="route().current('home')"
+                >
+                    Home
+                </ResponsiveNavLink>
+                <ResponsiveNavLink
+                    :href="route('quiz')"
+                    :active="route().current('quiz')"
+                >
+                    Quiz
+                </ResponsiveNavLink>
+            </div>
+
+            <div v-else class="space-y-1 pb-3 pt-2 ring-2">
+                <ResponsiveNavLink
+                    :href="route('home')"
+                    :active="route().current('home')"
+                >
+                    Home
+                </ResponsiveNavLink>
+                <ResponsiveNavLink
+                    :href="route('quiz')"
+                    :active="route().current('quiz')"
+                >
+                    Quiz
+                </ResponsiveNavLink>
+            </div>
+
+            <!-- Responsive Settings Options -->
+            <div
+                v-if="$page.props.auth.user"
+                class="border-t border-gray-200 pb-1 pt-4"
+            >
+                <div class="px-4">
+                    <div class="text-base font-medium text-gray-800">
+                        {{ $page.props.auth.user.name }}
+                    </div>
+                    <div class="text-sm font-medium text-gray-500">
+                        {{ $page.props.auth.user.email }}
+                    </div>
+                </div>
+
+                <div class="mt-3 space-y-1">
+                    <ResponsiveNavLink :href="route('profile.edit')">
+                        Profile
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        :href="route('logout')"
+                        method="post"
+                        as="button"
+                    >
+                        Log Out
+                    </ResponsiveNavLink>
+                </div>
+            </div>
+            <div v-else class="border-y-4 border-red-50">
+                <ResponsiveNavLink href="/login">Login</ResponsiveNavLink>
+                <ResponsiveNavLink v-if="canRegister" href="/register"
+                    >Register</ResponsiveNavLink
+                >
+            </div>
         </div>
     </nav>
 </template>

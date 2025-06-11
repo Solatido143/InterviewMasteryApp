@@ -13,9 +13,9 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name("home");
 
-Route::get('/quiz', [QuizController::class, 'index']);
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

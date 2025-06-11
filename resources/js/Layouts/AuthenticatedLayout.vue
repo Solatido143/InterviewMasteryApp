@@ -21,9 +21,10 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
                                 <Link :href="route('dashboard')">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800"
-                                    />
+                                    <span
+                                        class="self-center text-2xl font-semibold whitespace-nowrap"
+                                        >Upskill Mastery</span
+                                    >
                                 </Link>
                             </div>
 
